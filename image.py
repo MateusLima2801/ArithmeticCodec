@@ -43,5 +43,19 @@ class Image:
                 blocks.append(block)
         self.blocks = blocks
         
+    @staticmethod
+    def compose_arr_from_blocks(blocks: np.ndarray, dim: tuple):
+        array = np.zeros(dim)
+        dim_block = blocks[0].shape
+        n_blocks_row = dim[0] // dim_block[0]
+        for b, block in enumerate(blocks):
+            row = b // n_blocks_row
+            col = b % n_blocks_row
+            for i in range(len(block)):
+                for j in range(len(block[0])):
+                    array[row+i,col+j] = block[i,j]
+        return array
+        
+        
         
 
